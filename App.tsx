@@ -6,14 +6,13 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import StartGameScreen from './screens/StartGameScreen';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text>Hello world</Text>
-      </View>
+      <StartGameScreen />
     </SafeAreaView>
   );
 }
@@ -21,9 +20,6 @@ function App(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 

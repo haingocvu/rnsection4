@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import {View, TextInput, StyleSheet, Alert} from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
+import {colors} from '../constants/constants';
 
 interface IProps extends PropsWithChildren<unknown> {
   onPickedNumber:
@@ -56,7 +57,7 @@ const style = StyleSheet.create({
     marginTop: 20,
     padding: 16,
     marginHorizontal: 16,
-    backgroundColor: '#470225',
+    backgroundColor: colors.primary600,
     borderRadius: 8,
     elevation: 4,
     shadowColor: 'black',
@@ -69,9 +70,9 @@ const style = StyleSheet.create({
     height: 65,
     width: 50,
     marginVertical: 16,
-    borderBottomColor: '#ddb52f',
+    borderBottomColor: colors.secondary500,
     borderBottomWidth: 2,
-    color: '#ddb52f',
+    color: colors.secondary500,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 32,

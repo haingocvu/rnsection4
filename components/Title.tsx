@@ -1,5 +1,6 @@
 import React, {FC, PropsWithChildren} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {colors} from '../constants/constants';
 
 interface IProps extends PropsWithChildren<unknown> {}
 
@@ -16,11 +17,11 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
-    color: '#ddb52f',
+    color: colors.secondary500,
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    borderColor: '#ddb52f',
+    borderColor: colors.secondary500,
     borderWidth: 4,
     padding: 12,
   },

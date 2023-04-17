@@ -1,5 +1,6 @@
 import {FC, PropsWithChildren} from 'react';
 import {Text, Pressable, StyleSheet, View} from 'react-native';
+import {colors} from '../constants/constants';
 
 interface IProps extends PropsWithChildren<unknown> {
   onPress?: () => void;
@@ -31,7 +32,7 @@ const style = StyleSheet.create({
     overflow: 'hidden',
   },
   btnInner: {
-    backgroundColor: '#710e40',
+    backgroundColor: colors.primary500,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },

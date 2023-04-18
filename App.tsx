@@ -10,13 +10,25 @@ import {SafeAreaView, StyleSheet, ImageBackground} from 'react-native';
 import StartGameScreen from './screens/StartGameScreen';
 import LinearGradient from 'react-native-linear-gradient';
 import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOverScreen';
 
 function App(): JSX.Element {
   const [pickedNum, setPickedNum] = useState();
+  const [gameOver, setGameOver] = useState(false);
+
+  const gameOverHandler = () => {
+    setGameOver(true);
+  };
+
   let screen = <StartGameScreen onPickedNumber={setPickedNum} />;
   if (pickedNum) {
-    screen = <GameScreen />;
+    screen = <GameScreen pickedNum={pickedNum} onGameOver={gameOverHandler} />;
   }
+
+  if (gameOver) {
+    screen = <GameOverScreen />;
+  }
+
   return (
     <LinearGradient style={styles.container} colors={['#4c0629', '#ddb52f']}>
       <ImageBackground

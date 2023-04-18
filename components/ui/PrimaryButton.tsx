@@ -1,6 +1,6 @@
 import {FC, PropsWithChildren} from 'react';
 import {Text, Pressable, StyleSheet, View} from 'react-native';
-import {colors} from '../constants/constants';
+import {colors} from '../../constants/constants';
 
 interface IProps extends PropsWithChildren<unknown> {
   onPress?: () => void;

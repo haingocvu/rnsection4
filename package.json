@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "debug": "env REACT_DEBUGGER=\"$([ -d '/Applications/React Native Debugger.app' ] && echo \"open 'rndebugger://set-debugger-loc?host=localhost&port=8081' --args\")\" node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
     "react": "18.2.0",

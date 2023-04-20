@@ -1,5 +1,7 @@
 import React, {FC, PropsWithChildren, useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
 import {randomNum} from '../utils/randomNum';
@@ -55,12 +57,12 @@ const GameScreen: FC<IProps> = props => {
         <View style={style.btnGroup}>
           <View style={style.btn}>
             <PrimaryButton onPress={actionHandler.bind(this, 'higher')}>
-              +
+              <Icon name="add" size={20} color="white" />
             </PrimaryButton>
           </View>
           <View style={style.btn}>
             <PrimaryButton onPress={actionHandler.bind(this, 'lower')}>
-              -
+              <Icon name="remove" size={20} color="white" />
             </PrimaryButton>
           </View>
         </View>

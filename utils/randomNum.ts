@@ -3,6 +3,9 @@ export const randomNum = (
   max: number,
   exclude: number,
 ): number => {
+  if (min === max) {
+    return min;
+  }
   const rand = Math.floor(Math.random() * (max - min)) + min;
   if (rand === exclude) {
     return randomNum(min, max, exclude);

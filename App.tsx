@@ -13,11 +13,19 @@ import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
 
 function App(): JSX.Element {
-  const [pickedNum, setPickedNum] = useState();
+  const [pickedNum, setPickedNum] = useState<number>();
   const [gameOver, setGameOver] = useState(false);
+  const [totalRounds, setTotalRounds] = useState(0);
 
-  const gameOverHandler = () => {
+  const gameOverHandler = (totalsR: number) => {
+    setTotalRounds(totalsR);
     setGameOver(true);
+  };
+
+  const startNewGameHandler = () => {
+    setPickedNum(NaN);
+    setTotalRounds(0);
+    setGameOver(false);
   };
 
   let screen = <StartGameScreen onPickedNumber={setPickedNum} />;
@@ -26,7 +34,13 @@ function App(): JSX.Element {
   }
 
   if (gameOver) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        userPickNumber={pickedNum}
+        totalRounds={totalRounds}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
   }
 
   return (

@@ -1,5 +1,11 @@
-import React, {FC, PropsWithChildren, useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import {Alert, FlatList, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Title from '../components/ui/Title';
@@ -8,10 +14,11 @@ import {randomNum} from '../utils/randomNum';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/ui/Card';
 import InstructionText from '../components/ui/InstructionText';
+import LogItem from '../components/game/LogItem';
 
 interface IProps extends PropsWithChildren<unknown> {
   pickedNum: number;
-  onGameOver: () => void;
+  onGameOver: (totalRounds: number) => void;
 }
 
 let minBoundary = 1;
@@ -19,8 +26,16 @@ let maxBoundary = 99;
 
 const GameScreen: FC<IProps> = props => {
   const {pickedNum, onGameOver} = props;
-  const _random = randomNum(minBoundary, maxBoundary, pickedNum);
-  const [guessNum, setGuessNum] = useState(_random);
+  const initialGuess = useMemo(() => {
+    return randomNum(minBoundary, maxBoundary, pickedNum);
+  }, [pickedNum]);
+  const [guessNum, setGuessNum] = useState(initialGuess);
+  const [guessLogs, setGuessLog] = useState<Array<number>>([initialGuess]);
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 99;
+  }, []);
 
   function actionHandler(direction: 'lower' | 'higher') {
     if (
@@ -36,15 +51,21 @@ const GameScreen: FC<IProps> = props => {
     if (direction === 'higher') {
       minBoundary = guessNum + 1;
     } else {
-      maxBoundary = guessNum;
+      maxBoundary = guessNum - 1;
     }
     console.log(minBoundary, maxBoundary);
     const _ranNum = randomNum(minBoundary, maxBoundary, guessNum);
-    if (_ranNum === pickedNum) {
-      onGameOver();
-    }
     setGuessNum(_ranNum);
+    setGuessLog(prevLog => [_ranNum, ...prevLog]);
   }
+
+  useEffect(() => {
+    if (guessNum === pickedNum) {
+      onGameOver(guessLogs.length);
+    }
+  }, [guessLogs.length, guessNum, onGameOver, pickedNum]);
+
+  const guessLogLength = guessLogs.length;
 
   return (
     <View style={style.screen}>
@@ -67,7 +88,17 @@ const GameScreen: FC<IProps> = props => {
           </View>
         </View>
       </Card>
-      <View>{/* <Text>Log rounds</Text> */}</View>
+      <View style={style.listRoundWrp}>
+        <FlatList
+          data={guessLogs}
+          renderItem={({item, index}) => {
+            return (
+              <LogItem roundIndex={guessLogLength - index} guessNum={item} />
+            );
+          }}
+          keyExtractor={(item, index) => `${item}-${index}`}
+        />
+      </View>
     </View>
   );
 };
@@ -87,5 +118,9 @@ const style = StyleSheet.create({
   },
   InstructionText: {
     marginBottom: 24,
+  },
+  listRoundWrp: {
+    flex: 1,
+    padding: 12,
   },
 });
